@@ -4,6 +4,8 @@
 
 **A Linux system that is *a fixed point*: deterministically built, from source, by itself.**
 
+🌐 [**fixpointlinux.org**](https://fixpointlinux.org) · _a system that never forgets itself_
+
 </div>
 
 ---
