@@ -29,6 +29,7 @@ The name comes from the two ideas at the heart of the stack:
 
 | Component | What it is |
 |---|---|
+| **[`fixpoint-linux`](https://github.com/fixpoint-linux/fixpoint-linux)** | **The system itself** — a Dhall-specified, self-hosting Linux distro. Like Nix's *model* (pure derivations, content-addressed store, hermetic builds) without the Nix language. [Read the design.](https://github.com/fixpoint-linux/fixpoint-linux/blob/main/DESIGN.md) |
 | **[`dhall-c`](https://github.com/fixpoint-linux/dhall-c)** | A subset interpreter for the Dhall configuration language, written in C. `typecheck`, `normalize`, `to-json`/`toml`/`yaml`. The typed-config foundation everything else builds on. |
 | **[`datalog-dafsa`](https://github.com/fixpoint-linux/datalog-dafsa)** | A DAFSA-backed Datalog engine in C. Load facts into an on-disk minimal-acyclic-DAFSA store, compile Datalog rules to a small VM, materialize derived relations, serve reads from an mmap'd snapshot. |
 | **[`dhake`](https://github.com/fixpoint-linux/dhake)** | A Make-like build tool whose buildfile is a Dhall program (`Dhakefile.dhall`). Typed actions, incremental mtime up-to-date checks, dependency ordering, phony targets. **Self-hosting** — it builds itself. |
@@ -44,6 +45,14 @@ The name comes from the two ideas at the heart of the stack:
 - **Logic is declarative.** Datalog + DAFSA keep the data plane compact and exact.
 - **Self-hosting.** Tools build themselves (see `dhake`'s self-hosting buildfile).
 - **Small and legible.** Each component fits in your head; none pulls in a framework or a heavyweight runtime.
+
+## The system — read the design
+
+The org's apex is the **`fixpoint-linux`** distro itself: a self-hosting Linux
+system whose spec, builds, and store are all Dhall + Datalog + DAFSA —
+content-addressed by construction.
+
+👉 **[Read the full architecture design](https://github.com/fixpoint-linux/fixpoint-linux/blob/main/DESIGN.md)**
 
 ## Getting started
 
