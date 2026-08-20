@@ -35,7 +35,7 @@ The name comes from the two ideas at the heart of the stack:
 | **[`compendium`](https://github.com/fixpoint-linux/compendium)** | A small, self-contained authoritative **DNS server** (UDP, RFC 1035), configured in Dhall, shipped as a single APE binary. |
 | **[`visage`](https://github.com/fixpoint-linux/visage)** | A compact **email alias & forwarding server** — disposable `alias@domain` addresses backed by a DAFSA store. Daemon and store in one small APE binary. |
 | **[`dafsa`](https://github.com/fixpoint-linux/dafsa)** | The [Carrasco–Forcada](https://en.wikipedia.org/wiki/Deterministic_acyclic_finite_state_automaton) incremental DAFSA — minimal automaton with add/delete/lookup, persistence and DOT export. |
-| **[`shen-meta`](https://github.com/fixpoint-linux/shen-meta)** | Meta / planning workspace for the wider system (design notes and staging). |
+| **[`shen-meta`](https://github.com/fixpoint-linux/shen-meta)** | A self-hosted [Shen](https://shenlanguage.org/) implementation — a **sequent-calculus Lisp**. Evaluates itself, compiles itself to native bytecode via its own `shen->kl` compiler, and runs on a native C VM with a custom GC. Sequent calculus provides the inference kernel (cut elimination as computation). |
 
 ## Design principles
 
