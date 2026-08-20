@@ -25,13 +25,30 @@ The name comes from the two ideas at the heart of the stack:
 - **DAFSA** — the [minimal acyclic finite-state automaton](https://en.wikipedia.org/wiki/Deterministic_acyclic_finite_state_automaton)
   that backs the data stores: compact, exact, and fast.
 
+## ⏱️ Headline feature: the system remembers everything
+
+`fixpoint-linux` is **content-addressed by construction and time-travelling by
+default**. Every change is one atomic snapshot of the whole system; the timeline
+is the system's complete history. You can inspect any past state with an as-of
+query, roll back to any earlier point, and undo the rollback itself — without
+ever losing the record of what happened.
+
+- **Roll-forward rollbacks** — the timeline is an append-only ledger; going back
+  is recorded as history and always undoable.
+- **Boot rollback** — if the latest activation fails to come up, init rolls back
+  to the last good state automatically.
+- **Generation GC** — keep N bootable generations, prune the rest, done.
+
+Powered by `datalog-dafsa`'s native snapshot time-travel
+(`dl_publish_snapshot` / `dl_snapshot_versions` / `dl_query_version`).
+
 ## The stack
 
 | Component | What it is |
 |---|---|
-| **[`fixpoint-linux`](https://github.com/fixpoint-linux/fixpoint-linux)** | **The system itself** — a Dhall-specified, self-hosting Linux distro. Like Nix's *model* (pure derivations, content-addressed store, hermetic builds) without the Nix language. [Read the design.](https://github.com/fixpoint-linux/fixpoint-linux/blob/main/DESIGN.md) |
+| **[`fixpoint-linux`](https://github.com/fixpoint-linux/fixpoint-linux)** | **The system itself** — a Dhall-specified, self-hosting Linux distro. Like Nix's *model* (pure derivations, content-addressed store, hermetic builds) without the Nix language. **Time-travelling** — the whole system remembers and rolls back ([§10](https://github.com/fixpoint-linux/fixpoint-linux/blob/main/DESIGN.md)). [Read the design.](https://github.com/fixpoint-linux/fixpoint-linux/blob/main/DESIGN.md) |
 | **[`dhall-c`](https://github.com/fixpoint-linux/dhall-c)** | A subset interpreter for the Dhall configuration language, written in C. `typecheck`, `normalize`, `to-json`/`toml`/`yaml`. The typed-config foundation everything else builds on. |
-| **[`datalog-dafsa`](https://github.com/fixpoint-linux/datalog-dafsa)** | A DAFSA-backed Datalog engine in C. Load facts into an on-disk minimal-acyclic-DAFSA store, compile Datalog rules to a small VM, materialize derived relations, serve reads from an mmap'd snapshot. |
+| **[`datalog-dafsa`](https://github.com/fixpoint-linux/datalog-dafsa)** | A DAFSA-backed Datalog engine in C. Load facts into an on-disk minimal-acyclic-DAFSA store, compile Datalog rules to a small VM, materialize derived relations, serve reads from an mmap'd snapshot. **Native time travel** — versioned snapshots + as-of queries make the system timeline and rollbacks possible. |
 | **[`dhake`](https://github.com/fixpoint-linux/dhake)** | A Make-like build tool whose buildfile is a Dhall program (`Dhakefile.dhall`). Typed actions, incremental mtime up-to-date checks, dependency ordering, phony targets. **Self-hosting** — it builds itself. |
 | **[`compendium`](https://github.com/fixpoint-linux/compendium)** | A small, self-contained authoritative **DNS server** (UDP, RFC 1035), configured in Dhall, shipped as a single APE binary. |
 | **[`visage`](https://github.com/fixpoint-linux/visage)** | A compact **email alias & forwarding server** — disposable `alias@domain` addresses backed by a DAFSA store. Daemon and store in one small APE binary. |
