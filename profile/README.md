@@ -25,7 +25,7 @@ The name comes from the two ideas at the heart of the stack:
 - **DAFSA** — the [minimal acyclic finite-state automaton](https://en.wikipedia.org/wiki/Deterministic_acyclic_finite_state_automaton)
   that backs the data stores: compact, exact, and fast.
 
-## ⏱️ Headline feature: the system remembers everything
+## ⏱️ A system that never forgets itself
 
 `fixpoint-linux` is **content-addressed by construction and time-travelling by
 default**. Every change is one atomic snapshot of the whole system; the timeline
